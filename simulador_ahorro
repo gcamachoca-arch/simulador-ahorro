@@ -1,0 +1,56 @@
+
+# SIMULADOR DE AHORRO CON INTERÉS COMPUESTO
+
+# Constantes del programa
+MAX_MESES = 120
+PORCENTAJE = 100
+
+# Entrada de datos
+ahorro_inicial = float(input("Ingrese el ahorro inicial (₡): "))
+aporte_mensual = float(input("Ingrese el aporte mensual fijo (₡): "))
+tasa_mensual = float(input("Ingrese la tasa de interés mensual (%): "))
+meta_ahorro = float(input("Ingrese la meta de ahorro (₡): "))
+
+# Validación de los datos ingresados
+if ahorro_inicial < 0 or aporte_mensual < 0:
+    print("Error: los ahorros y aportes no pueden ser negativos.")
+elif tasa_mensual < 0:
+    print("Error: la tasa de interés no puede ser negativa.")
+elif meta_ahorro <= 0:
+    print("Error: la meta debe ser mayor que cero.")
+else:
+    # Inicialización de variables
+    saldo = ahorro_inicial
+    mes = 0
+
+    print("\n--- EVOLUCIÓN DEL AHORRO ---")
+    print(f"Mes {mes}: ₡{saldo:,.2f}")
+
+    # Ciclo de ahorro: máximo 120 meses
+    while saldo < meta_ahorro and mes < MAX_MESES:
+
+        # Calcular y sumar el interés mensual
+        interes = saldo * (tasa_mensual / PORCENTAJE)
+        saldo = saldo + interes
+
+        # Agregar el aporte mensual
+        saldo = saldo + aporte_mensual
+
+        # Actualizar el contador de meses
+        mes = mes + 1
+
+        # Mostrar el saldo al finalizar cada mes
+        print(f"Mes {mes}: ₡{saldo:,.2f}")
+
+    # Mostrar el resultado final
+    print("\n--- RESULTADO FINAL ---")
+    print(f"Meses transcurridos: {mes}")
+    print(f"Saldo final: ₡{saldo:,.2f}")
+
+    # Comprobar si se alcanzó la meta
+    if saldo >= meta_ahorro:
+        print(f"¡Meta alcanzada en el mes {mes}!")
+    else:
+        faltante = meta_ahorro - saldo
+        print("No se alcanzó la meta en 120 meses.")
+        print(f"Dinero faltante: ₡{faltante:,.2f}")
